@@ -6,12 +6,13 @@
     text-shadow: #706c6c 1px 1px;
 }
 
-.App{
+.App {
+    width: 100%;
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-image: url("assets/fundo.jpg");
-    background-size: cover;
-    background-position: center;
+
+    background: linear-gradient(135deg, #667eea, #764ba2, #ff758c);
 }

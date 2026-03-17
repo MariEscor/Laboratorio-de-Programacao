@@ -1,0 +1,185 @@
+.container {
+    width: 450px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 10px;
+    overflow: visible;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.container .input-field {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px auto;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 15px 45px 15px 15px; /* espaço pros ícones */
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: #fff;
+    outline: none;
+}
+
+.input-field input::placeholder {
+    color: #fff;
+}
+
+.input-field .icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #fff;
+}
+
+.container .recall-forget {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.recall-forget label {
+    color: #fff;
+}
+
+.recall-forget input {
+    margin-right: 5px;
+}
+
+.recall-forget a,
+.signup-link p a  {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s
+}
+
+.recall-forget a:hover,
+.signup-link p a:hover  {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.container button {
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.container .signup-link {
+    font-size: 15px;
+    text-align: center;
+    margin: 20px 0 10px;
+    text-shadow: none;
+}
+
+.toggle {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+}
+
+.password-rules {
+    font-size: 12px;
+    text-align: left;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.password-rules .ok {
+    color: #00ff88;
+    position: center;
+}
+
+/* INPUT BASE */
+.container .input-field {
+    position: relative;
+    width: 100%;
+    margin: 25px 0;
+}
+
+/* INPUT */
+.input-field input {
+    width: 100%;
+    height: 50px;
+    padding: 15px 45px 15px 15px; /* espaço só pro cadeado */
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: transparent;
+    color: #fff;
+    outline: none;
+}
+
+/* PLACEHOLDER */
+.input-field input::placeholder {
+    color: #fff;
+}
+
+/* cadeado ÍCONE DENTRO */
+.input-field .icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #fff;
+}
+
+/* olho ÍCONE*/
+.input-field .toggle {
+    position: absolute;
+    right:50px; /* 👈 fora do input */
+    top: 55%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+}
+
+/* REGRAS DE SENHA */
+.password-rules {
+    font-size: 12px;
+    text-align: left;
+    margin: 5px 0 15px 5px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.password-rules .ok {
+    color: #00ff88;
+}
+
+.password-rules {
+    font-size: 12px;
+    text-align: left;
+    margin: 10px 0 20px 10px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.password-rules .ok {
+    color: #00ff88;
+}
