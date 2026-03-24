@@ -6,20 +6,36 @@ import { Link } from "react-router-dom";
 
 import "./Login.css"
 
+const handleLogin = async (username, password) => {
+    const response = await fetch("http://127.0.0.1:8000/api/login/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username,
+            password
+        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        alert("Login feito!");
+    } else {
+        alert(data.error);
+    }
+};
+
 const Login = () => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-        //console.log(username, password)
-
-        //console.log("Envio")
-
-        //alert("Enviando os dados:" + username + " - " + password)
-    }
+    const handleSubmit = async (event) => {
+    event.preventDefault();
+    await handleLogin(username, password);
+};
 
     return (
         <div className="container">
