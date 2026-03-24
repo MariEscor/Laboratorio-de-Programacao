@@ -8,7 +8,7 @@ import {
     FaEyeSlash,
 } from "react-icons/fa";
 import "./Register.css";
-import { handleRegister } from "./Register.js";
+import { handleRegister } from "./registerService.js";
 
 const Register = () => {
     const [formData, setFormData] = useState({

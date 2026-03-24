@@ -3,7 +3,7 @@ import {FaUser, FaLock, FaEye, FaEyeSlash} from 'react-icons/fa'
 import { useState } from 'react'
 import { Link } from "react-router-dom";
 import "./Login.css"
-import { handleLogin } from "./Login";
+import { handleLogin } from "./loginService";
 
 
 const Login = () => {
