@@ -8,6 +8,7 @@ import {
     FaEyeSlash,
 } from "react-icons/fa";
 import "./Register.css";
+import { handleRegister } from "./Register.js";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const handleChange = (e) => {
     });
 };
 
-  // 🔒 Validação da senha
+
 const validarSenha = (senha) => {
     return {
         tamanho: senha.length >= 6,
@@ -40,7 +41,8 @@ const validarSenha = (senha) => {
 
 const regrasSenha = validarSenha(formData.senha);
 
-const handleSubmit = (e) => {
+
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!regrasSenha.tamanho || !regrasSenha.numero || !regrasSenha.letra) {
@@ -53,7 +55,7 @@ const handleSubmit = (e) => {
         return;
     }
 
-    console.log("Dados:", formData);
+    await handleRegister(formData);
 };
 
 return (

@@ -1,59 +1,50 @@
 import React from 'react'
-import {FaUser, FaLock} from 'react-icons/fa'
-
+import {FaUser, FaLock, FaEye, FaEyeSlash} from 'react-icons/fa'
 import { useState } from 'react'
 import { Link } from "react-router-dom";
-
 import "./Login.css"
+import { handleLogin } from "./Login";
 
-const handleLogin = async (username, password) => {
-    const response = await fetch("http://127.0.0.1:8000/api/login/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-        alert("Login feito!");
-    } else {
-        alert(data.error);
-    }
-};
 
 const Login = () => {
 
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = async (event) => {
-    event.preventDefault();
-    await handleLogin(username, password);
-};
+        event.preventDefault();
+        await handleLogin(email, password);
+    };
+
+const [showSenha, setShowSenha] = useState(false);
 
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
                 <h1>Acesse o sistema</h1>
+
                 <div className='input-field'>
                     <input type="email" 
                     placeholder='E-mail' 
-                    onChange={(e) => setUsername(e.target.value)} 
+                    onChange={(e) => setEmail(e.target.value)} 
                     />
                     <FaUser className='icon'/>
                 </div>
-                <div className='input-field'>
-                    <input type="password" 
-                    placeholder='Senha' 
-                    onChange={(e) => setPassword(e.target.value)} 
+
+                <div className='input-field senha-field'>
+                    <input
+                        type={showSenha ? "text" : "password"}
+                        placeholder='Senha'
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <FaLock className='icon'/>
+
+                    <span 
+                        className="toggle"
+                        onClick={() => setShowSenha(!showSenha)}
+                    >
+                        {showSenha ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                 </div>
 
                 <div className="recall-forget">
