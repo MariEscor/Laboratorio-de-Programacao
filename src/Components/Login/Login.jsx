@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Link } from "react-router-dom";
 import "./Login.css"
 import { handleLogin } from "./loginService";
+import { testarRotaProtegida } from "../../teste";
 
 
 const Login = () => {
@@ -14,6 +15,8 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         await handleLogin(email, password);
+        
+        await testarRotaProtegida();
     };
 
 const [showSenha, setShowSenha] = useState(false);
