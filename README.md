@@ -1,16 +1,189 @@
-# React + Vite
+# Laboratório de Programação
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Frontend
 
-## React Compiler
+* React
+* Vite
+* React Router DOM
+* React Icons
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
 
-## Expanding the ESLint configuration
+* Django
+* Django REST Framework
+* JWT Authentication
+* CORS Headers
+* PostgreSQL
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# Como Executar o Projeto
+
+## Pré-requisitos
+
+Antes de começar, é necessário ter instalado:
+
+* Node.js
+* Python 3.12+
+* Git
+
+---
+
+# Executando o Backend (Django)
+
+## 1. Criar ambiente virtual
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux/Mac
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+## 2. Instalar dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 3. Entrar na pasta do backend
+
+```bash
+cd backend
+```
+
+---
+
+## 4. Executar as migrações
+
+```bash
+python manage.py migrate
+```
+
+---
+
+## 5. Criar um superusuário (opcional)
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+## 6. Iniciar o servidor Django
+
+```bash
+python manage.py runserver
+```
+
+O backend estará disponível em:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+# Executando o Frontend (React + Vite)
+
+Abra outro terminal na raiz do projeto.
+
+## 1. Instalar dependências
+
+```bash
+npm install
+```
+
+---
+
+## 2. Executar o frontend
+
+```bash
+npm run dev
+```
+
+O frontend estará disponível em:
+
+```text
+http://localhost:5173/
+```
+
+---
+
+# Autenticação JWT
+
+O projeto utiliza autenticação JWT.
+
+## Login
+
+Faça uma requisição POST para:
+
+```text
+http://127.0.0.1:8000/login/
+```
+
+### Body da requisição
+
+```json
+{
+  "email": "seu_email",
+  "password": "sua_senha"
+}
+```
+
+### Resposta esperada
+
+```json
+{
+  "message": "Login realizado com sucesso",
+  "refresh": "TOKEN_REFRESH",
+  "access": "TOKEN_ACCESS"
+}
+```
+
+---
+
+# Utilizando o Token no Postman
+
+Nas rotas protegidas, utilize:
+
+```text
+Authorization: Bearer SEU_TOKEN
+```
+
+Ou configure na aba:
+
+* Authorization
+* Bearer Token
+
+---
+
+# Estrutura do Projeto
+
+```text
+Lab Programacao/
+│
+├── backend/          # Backend Django
+├── src/              # Frontend React
+├── public/           # Arquivos públicos
+├── requirements.txt  # Dependências Python
+├── package.json      # Dependências Node
+└── README.md
+```
+
+
