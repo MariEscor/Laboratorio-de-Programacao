@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
+import Eventos from "./Components/Eventos/Eventos";
 
 import "./App.css"; // ⚠️ importante
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/eventos" element={<Eventos />} />
         </Routes>
       </Router>
     </div>

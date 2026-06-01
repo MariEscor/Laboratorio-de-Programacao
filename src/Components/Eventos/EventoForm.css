@@ -1,0 +1,12 @@
+textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+.eventos-container form button {
+    margin-top: 10px;
+}
