@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import Evento
+from .serializers import EventoSerializer
 
 User = get_user_model()
 
@@ -50,6 +52,16 @@ def register(request):
 
     return Response({'message': 'Usuário criado com sucesso'})
 
+@api_view(['POST'])
+def criar_evento(request):
+    serializer = EventoSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+
+    return Response(serializer.errors, status=400)
+
 
 # 🔒 ROTA PROTEGIDA
 @api_view(['GET'])
@@ -66,3 +78,31 @@ def rota_protegida(request):
 @permission_classes([IsAuthenticated])
 def minha_view(request):
     return Response({"msg": "Autenticado!"})
+
+@api_view(['GET'])
+def listar_eventos(request):
+    eventos = Evento.objects.all()
+    serializer = EventoSerializer(eventos, many=True)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def editar_evento(request, id):
+    evento = Evento.objects.get(id=id)
+
+    serializer = EventoSerializer(
+        evento,
+        data=request.data
+    )
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+
+    return Response(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def excluir_evento(request, id):
+    evento = Evento.objects.get(id=id)
+    evento.delete()
+
+    return Response({"msg": "Evento removido"})
