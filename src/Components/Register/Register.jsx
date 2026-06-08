@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     FaUser,
     FaLock,
@@ -11,6 +12,9 @@ import "./Register.css";
 import { handleRegister } from "./registerService.js";
 
 const Register = () => {
+
+    const navigate = useNavigate();
+    
     const [formData, setFormData] = useState({
     nome: "",
     sobrenome: "",
@@ -55,7 +59,11 @@ const handleSubmit = async (e) => {
         return;
     }
 
-    await handleRegister(formData);
+    const sucesso = await handleRegister(formData);
+    
+    if (sucesso) {
+        navigate("/");
+    }
 };
 
 return (
