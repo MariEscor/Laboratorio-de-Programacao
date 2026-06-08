@@ -17,7 +17,9 @@ export const handleRegister = async (formData) => {
 
     if (response.ok) {
         alert("Usuário criado com sucesso!");
+        return true;
     } else {
         alert(data.error);
+        return false;
     }
 };
