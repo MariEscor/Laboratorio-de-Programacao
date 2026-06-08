@@ -60,6 +60,12 @@ const Login = () => {
                 </div>
                 
                 <button>Entrar</button>
+                
+                <div className="signup-link">
+                    <p>
+                        Não tem uma conta? <Link to="/register">Cadastrar-se</Link>
+                    </p>
+                </div>
             </form>
         </div>
     )
