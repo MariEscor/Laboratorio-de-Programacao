@@ -134,6 +134,8 @@ Com os containers em execução (`docker compose up`), abra um **novo terminal**
 ```bash
 docker compose exec backend python manage.py test
 
+```
+
 # Estrutura do Projeto
 
 ```text
