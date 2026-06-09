@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Backend (Python / Django)
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+db.sqlite3
+
+# Variáveis de Ambiente
+.env
+.env.local

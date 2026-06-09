@@ -31,4 +31,17 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-    
+
+class Evento(models.Model):
+    usuario = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    nome = models.CharField(max_length=200)
+    data = models.DateField()
+    local = models.CharField(max_length=200)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return self.nome
