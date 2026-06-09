@@ -1,4 +1,4 @@
-```markdown
+
 # Laboratório de Programação
 
 Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend. A aplicação é totalmente conteinerizada, garantindo que rode de forma idêntica em qualquer ambiente.
@@ -146,8 +146,6 @@ Lab Programacao/
 ├── .gitignore        # Arquivos e pastas ignorados pelo Git
 ├── docker-compose.yml# Orquestrador dos containers (Front, Back e Banco)
 └── README.md         # Documentação do projeto
-
-```
 
 ```
 
