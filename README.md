@@ -1,23 +1,25 @@
 # Laboratório de Programação
 
-Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend.
+Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend. A aplicação é totalmente conteinerizada, garantindo que rode de forma idêntica em qualquer ambiente.
 
 ## Tecnologias Utilizadas
 
 ### Frontend
-
 * React
 * Vite
 * React Router DOM
 * React Icons
 
 ### Backend
-
 * Django
 * Django REST Framework
 * JWT Authentication
 * CORS Headers
 * PostgreSQL
+
+### Infraestrutura
+* Docker
+* Docker Compose
 
 ---
 
@@ -25,125 +27,73 @@ Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework
 
 ## Pré-requisitos
 
-Antes de começar, é necessário ter instalado:
+Como o projeto utiliza containers, você **não** precisa ter o Node.js, Python ou PostgreSQL instalados na sua máquina. É necessário apenas ter:
 
-* Node.js
-* Python 3.12+
-* Git
-
----
-
-# Executando o Backend (Django)
-
-## 1. Criar ambiente virtual
-
-### Windows
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-### Linux/Mac
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+* **[Git](https://git-scm.com/)**
+* **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** (ou Docker Engine + Docker Compose)
 
 ---
 
-## 2. Instalar dependências
+## Passo a Passo para Execução
+
+### 1. Configurar as Variáveis de Ambiente
+Na raiz do projeto, existe um arquivo chamado `.env.example`. Ele serve como um modelo para as credenciais do sistema.
+
+1. Faça uma cópia do arquivo `.env.example` e renomeie a cópia para `.env`.
+2. Abra o novo arquivo `.env` e preencha com uma senha da sua escolha para o banco de dados.
+
+### 2. Subir a Infraestrutura (Containers)
+Abra o terminal na raiz do projeto e execute:
 
 ```bash
-pip install -r requirements.txt
+docker compose up --build
+
 ```
 
----
+*Dica: O Docker fará o download das imagens, instalará as dependências e **aplicará as migrações do banco de dados automaticamente**. As próximas execuções levarão apenas alguns segundos. Se quiser rodar em segundo plano, adicione `-d` ao final do comando.*
 
-## 3. Entrar na pasta do backend
+### 3. Criar um Superusuário (Opcional)
+
+Com os containers rodando, caso queira acessar o painel de administração do Django, abra um **novo terminal** e crie um usuário admin:
 
 ```bash
-cd backend
+docker compose exec backend python manage.py createsuperuser
+
 ```
 
 ---
 
-## 4. Executar as migrações
+## 🌐 Serviços Disponíveis
 
-```bash
-python manage.py migrate
-```
+Após executar os passos acima, a aplicação estará disponível nos seguintes endereços:
 
----
-
-## 5. Criar um superusuário (opcional)
-
-```bash
-python manage.py createsuperuser
-```
-
----
-
-## 6. Iniciar o servidor Django
-
-```bash
-python manage.py runserver
-```
-
-O backend estará disponível em:
-
-```text
-http://127.0.0.1:8000/
-```
-
----
-
-# Executando o Frontend (React + Vite)
-
-Abra outro terminal na raiz do projeto.
-
-## 1. Instalar dependências
-
-```bash
-npm install
-```
-
----
-
-## 2. Executar o frontend
-
-```bash
-npm run dev
-```
-
-O frontend estará disponível em:
-
-```text
-http://localhost:5173/
-```
+* **Frontend (React):** http://localhost:5173
+* **Backend (API Django):** http://localhost:8000/api/
+* **Banco de Dados (PostgreSQL):** `localhost:5432`
 
 ---
 
 # Autenticação JWT
 
-O projeto utiliza autenticação JWT.
+O projeto utiliza autenticação via tokens JWT para rotas protegidas.
 
 ## Login
 
 Faça uma requisição POST para:
 
 ```text
-http://127.0.0.1:8000/login/
+[http://127.0.0.1:8000/login/](http://127.0.0.1:8000/login/)
+
 ```
 
-### Body da requisição
+### Body da requisição (JSON)
 
 ```json
 {
-  "email": "seu_email",
+  "email": "seu_email@exemplo.com",
   "password": "sua_senha"
 }
+
 ```
 
 ### Resposta esperada
@@ -151,25 +101,27 @@ http://127.0.0.1:8000/login/
 ```json
 {
   "message": "Login realizado com sucesso",
-  "refresh": "TOKEN_REFRESH",
-  "access": "TOKEN_ACCESS"
+  "refresh": "TOKEN_REFRESH_GERADO",
+  "access": "TOKEN_ACCESS_GERADO"
 }
+
 ```
 
 ---
 
-# Utilizando o Token no Postman
+# Utilizando o Token no Postman / Insomnia
 
-Nas rotas protegidas, utilize:
+Para acessar rotas protegidas da API, inclua o token JWT no cabeçalho (Header) da sua requisição:
 
 ```text
-Authorization: Bearer SEU_TOKEN
+Authorization: Bearer SEU_TOKEN_ACCESS
+
 ```
 
-Ou configure na aba:
+Ou configure diretamente na aba **Auth**:
 
-* Authorization
-* Bearer Token
+* Type: `Bearer Token`
+* Token: `[cole o token access aqui]`
 
 ---
 
@@ -178,12 +130,9 @@ Ou configure na aba:
 ```text
 Lab Programacao/
 │
-├── backend/          # Backend Django
-├── src/              # Frontend React
-├── public/           # Arquivos públicos
-├── requirements.txt  # Dependências Python
-├── package.json      # Dependências Node
-└── README.md
-```
-
-
+├── backend/          # Backend Django (Dockerfile, requirements.txt, views, etc)
+├── frontend/         # Frontend React (Dockerfile, package.json, src, etc)
+├── .env.example      # Template de variáveis de ambiente (seguro para o GitHub)
+├── .gitignore        # Arquivos e pastas ignorados pelo Git
+├── docker-compose.yml# Orquestrador dos containers (Front, Back e Banco)
+└── README.md         # Documentação do projeto
