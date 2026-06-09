@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validarSenha } from "../../utils/validarSenha";
 import { useNavigate } from "react-router-dom";
 import {
     FaUser,
@@ -35,13 +36,7 @@ const handleChange = (e) => {
 };
 
 
-const validarSenha = (senha) => {
-    return {
-        tamanho: senha.length >= 6,
-        numero: /\d/.test(senha),
-        letra: /[a-zA-Z]/.test(senha),
-    };
-};
+//colocado em utills/validarSenha.js para os testes 
 
 const regrasSenha = validarSenha(formData.senha);
 

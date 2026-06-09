@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "jsdom": "^28.1.0",
+    "vitest": "^4.1.8"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.17.0"
+  }
+}
