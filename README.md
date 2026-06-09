@@ -1,3 +1,4 @@
+```markdown
 # Laboratório de Programação
 
 Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend. A aplicação é totalmente conteinerizada, garantindo que rode de forma idêntica em qualquer ambiente.
@@ -47,3 +48,107 @@ Abra o terminal na raiz do projeto e execute:
 
 ```bash
 docker compose up --build
+
+```
+
+*Dica: Na primeira execução, o Docker fará o download das imagens e instalação das dependências. As próximas execuções levarão apenas alguns segundos. Se quiser rodar em segundo plano, adicione `-d` ao final do comando.*
+
+### 3. Aplicar as Migrações do Banco de Dados
+
+Com os containers rodando, abra um **novo terminal** na raiz do projeto e crie as tabelas do banco de dados:
+
+```bash
+docker compose exec backend python manage.py migrate
+
+```
+
+### 4. Criar um Superusuário (Opcional)
+
+Para acessar o painel de administração do Django, crie um usuário admin:
+
+```bash
+docker compose exec backend python manage.py createsuperuser
+
+```
+
+---
+
+## 🌐 Serviços Disponíveis
+
+Após executar os passos acima, a aplicação estará disponível nos seguintes endereços:
+
+* **Frontend (React):** [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)
+* **Backend (API Django):** [http://localhost:8000/api/](https://www.google.com/search?q=http://localhost:8000/api/)
+* **Banco de Dados (PostgreSQL):** `localhost:5432`
+
+---
+
+# Autenticação JWT
+
+O projeto utiliza autenticação via tokens JWT para rotas protegidas.
+
+## Login
+
+Faça uma requisição POST para:
+
+```text
+[http://127.0.0.1:8000/login/](http://127.0.0.1:8000/login/)
+
+```
+
+### Body da requisição (JSON)
+
+```json
+{
+  "email": "seu_email@exemplo.com",
+  "password": "sua_senha"
+}
+
+```
+
+### Resposta esperada
+
+```json
+{
+  "message": "Login realizado com sucesso",
+  "refresh": "TOKEN_REFRESH_GERADO",
+  "access": "TOKEN_ACCESS_GERADO"
+}
+
+```
+
+---
+
+# Utilizando o Token no Postman / Insomnia
+
+Para acessar rotas protegidas da API, inclua o token JWT no cabeçalho (Header) da sua requisição:
+
+```text
+Authorization: Bearer SEU_TOKEN_ACCESS
+
+```
+
+Ou configure diretamente na aba **Auth**:
+
+* Type: `Bearer Token`
+* Token: `[cole o token access aqui]`
+
+---
+
+# Estrutura do Projeto
+
+```text
+Lab Programacao/
+│
+├── backend/          # Backend Django (Dockerfile, requirements.txt, views, etc)
+├── frontend/         # Frontend React (Dockerfile, package.json, src, etc)
+├── .env.example      # Template de variáveis de ambiente (seguro para o GitHub)
+├── .gitignore        # Arquivos e pastas ignorados pelo Git
+├── docker-compose.yml# Orquestrador dos containers (Front, Back e Banco)
+└── README.md         # Documentação do projeto
+
+```
+
+```
+
+```
