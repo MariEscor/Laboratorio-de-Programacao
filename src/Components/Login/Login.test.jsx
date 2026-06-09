@@ -1,7 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 import Login from "./Login";
+import { handleLogin } from "./loginService";
+
+vi.mock("./loginService", () => ({
+    handleLogin: vi.fn(() => Promise.resolve(true))
+}));
+
+vi.mock("../../teste", () => ({
+    testarRotaProtegida: vi.fn(() => Promise.resolve())
+}));
 
 test("renderiza a tela de login", () => {
     render(
@@ -108,19 +118,26 @@ test("permite mostrar e ocultar a senha", () => {
     );
 });
 
-test("permite enviar o formulário", () => {
+test("permite enviar o formulário", async () => {
     render(
         <BrowserRouter>
             <Login />
         </BrowserRouter>
     );
 
-    const botao = screen.getByRole(
-        "button",
-        { name: /entrar/i }
+    fireEvent.change(
+        screen.getByPlaceholderText("E-mail"),
+        { target: { value: "teste@email.com" } }
     );
 
-    fireEvent.click(botao);
+    fireEvent.change(
+        screen.getByPlaceholderText("Senha"),
+        { target: { value: "123456" } }
+    );
 
-    expect(botao).toBeInTheDocument();
+    fireEvent.click(
+        screen.getByRole("button", { name: /entrar/i })
+    );
+
+    expect(handleLogin).toHaveBeenCalled();
 });
