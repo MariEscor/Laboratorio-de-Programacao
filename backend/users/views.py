@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Evento
 from .serializers import EventoSerializer
+from django.shortcuts import get_object_or_404
 
 User = get_user_model()
 
@@ -28,21 +29,34 @@ def login(request):
         return Response({'error': 'Credenciais inválidas'}, status=400)
 
 
-# 📝 REGISTER
 @api_view(['POST'])
 def register(request):
     email = request.data.get('email')
     password = request.data.get('password')
 
-    # campos extras
     nome = request.data.get('nome')
     sobrenome = request.data.get('sobrenome')
     telefone = request.data.get('telefone')
 
-    if User.objects.filter(email=email).exists():
-        return Response({'error': 'Email já cadastrado'}, status=400)
+    if not email:
+        return Response(
+            {"error": "Email é obrigatório"},
+            status=400
+        )
 
-    user = User.objects.create_user(
+    if not password:
+        return Response(
+            {"error": "Senha é obrigatória"},
+            status=400
+        )
+
+    if User.objects.filter(email=email).exists():
+        return Response(
+            {"error": "Email já cadastrado"},
+            status=400
+        )
+
+    User.objects.create_user(
         email=email,
         password=password,
         nome=nome,
@@ -50,14 +64,17 @@ def register(request):
         telefone=telefone
     )
 
-    return Response({'message': 'Usuário criado com sucesso'})
+    return Response(
+        {"message": "Usuário criado com sucesso"}
+    )
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def criar_evento(request):
     serializer = EventoSerializer(data=request.data)
 
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(usuario=request.user)
         return Response(serializer.data)
 
     return Response(serializer.errors, status=400)
@@ -80,14 +97,17 @@ def minha_view(request):
     return Response({"msg": "Autenticado!"})
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def listar_eventos(request):
-    eventos = Evento.objects.all()
+    eventos = Evento.objects.filter(usuario=request.user)
     serializer = EventoSerializer(eventos, many=True)
+
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def editar_evento(request, id):
-    evento = Evento.objects.get(id=id)
+    evento = get_object_or_404(Evento, id=id, usuario=request.user)
 
     serializer = EventoSerializer(
         evento,
@@ -101,6 +121,7 @@ def editar_evento(request, id):
     return Response(serializer.errors, status=400)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def excluir_evento(request, id):
     evento = Evento.objects.get(id=id)
     evento.delete()
