@@ -125,6 +125,15 @@ Ou configure diretamente na aba **Auth**:
 
 ---
 
+# Como Executar os Testes
+
+O projeto conta com uma suíte de testes automatizados para garantir a integridade das regras de negócio e da API.
+
+Com os containers em execução (`docker compose up`), abra um **novo terminal** na raiz do projeto e execute o comando abaixo:
+
+```bash
+docker compose exec backend python manage.py test
+
 # Estrutura do Projeto
 
 ```text
