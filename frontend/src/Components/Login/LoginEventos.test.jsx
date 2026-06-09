@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Login from "./Login";
 
-test("permite digitar e--mail", () => {
+test("permite digitar e-mail", () => {
     render(
         <BrowserRouter>
             <Login />
