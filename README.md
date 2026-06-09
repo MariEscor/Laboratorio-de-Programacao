@@ -1,4 +1,3 @@
-
 # Laboratório de Programação
 
 Projeto desenvolvido utilizando React + Vite no frontend e Django REST Framework no backend. A aplicação é totalmente conteinerizada, garantindo que rode de forma idêntica em qualquer ambiente.
@@ -51,20 +50,11 @@ docker compose up --build
 
 ```
 
-*Dica: Na primeira execução, o Docker fará o download das imagens e instalação das dependências. As próximas execuções levarão apenas alguns segundos. Se quiser rodar em segundo plano, adicione `-d` ao final do comando.*
+*Dica: O Docker fará o download das imagens, instalará as dependências e **aplicará as migrações do banco de dados automaticamente**. As próximas execuções levarão apenas alguns segundos. Se quiser rodar em segundo plano, adicione `-d` ao final do comando.*
 
-### 3. Aplicar as Migrações do Banco de Dados
+### 3. Criar um Superusuário (Opcional)
 
-Com os containers rodando, abra um **novo terminal** na raiz do projeto e crie as tabelas do banco de dados:
-
-```bash
-docker compose exec backend python manage.py migrate
-
-```
-
-### 4. Criar um Superusuário (Opcional)
-
-Para acessar o painel de administração do Django, crie um usuário admin:
+Com os containers rodando, caso queira acessar o painel de administração do Django, abra um **novo terminal** e crie um usuário admin:
 
 ```bash
 docker compose exec backend python manage.py createsuperuser
@@ -77,8 +67,8 @@ docker compose exec backend python manage.py createsuperuser
 
 Após executar os passos acima, a aplicação estará disponível nos seguintes endereços:
 
-* **Frontend (React):** [http://localhost:5173](https://www.google.com/search?q=http://localhost:5173)
-* **Backend (API Django):** [http://localhost:8000/api/](https://www.google.com/search?q=http://localhost:8000/api/)
+* **Frontend (React):** http://localhost:5173
+* **Backend (API Django):** http://localhost:8000/api/
 * **Banco de Dados (PostgreSQL):** `localhost:5432`
 
 ---
@@ -146,7 +136,3 @@ Lab Programacao/
 ├── .gitignore        # Arquivos e pastas ignorados pelo Git
 ├── docker-compose.yml# Orquestrador dos containers (Front, Back e Banco)
 └── README.md         # Documentação do projeto
-
-```
-
-```
